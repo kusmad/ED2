@@ -55,28 +55,49 @@ bool leitura_arq(list<dados> &grafo){
     }
     grafo.push_back(leitura);
 
+
     return 0;
 
 }
 
-void grau_vertice(list<dados> &grafo){
-    string rot;
-    int t_grau;
-    dados aux;
-
-    rot = aux.rotulo;
+bool grau_vertice(list<dados> &grafo){
+    string vertice;
+    int acum =0;
+    cout << "Digite o nome do vertice desejado: ";
+    cin >> vertice;
 
     for(auto it=grafo.begin(); it!=grafo.end(); it++){
-        if(rot == it->v_inicial || rot == it->v_final)
-            cout << "yes" << endl;
+        if(vertice == it->v_inicial || vertice == it->v_final) acum ++;
     }
+        cout << "Grau do vertice " << vertice << ":" << acum-1 << endl;
+    return 0;
 }
 
-/*void vertice_final(list<dados> grafo){
-    for(auto it=grafo.begin(); it!=grafo.end(); it++){
-        if(it->vinici)
+bool vertice_final(list<dados> grafo){
+    int total_grau;
+    dados insere_grau;
+    string rot;
+    auto j = grafo.begin();
+
+    int p = 0;
+    while(p<j->numero_v){
+        rot = j->rotulo;
+        total_grau = 0;
+        for(auto it=grafo.begin(); it!=grafo.end(); it++){
+            if(rot == it->v_inicial || rot == it->v_final) total_grau ++;
+        }
+        p++;
+        j++;
+        if(total_grau == 1)
+            cout << "Vertice(s) final(is): " << rot << endl;
+
+        else{
+            cout << "Nao foram encontrados vertices finais\n\n";
+            return 0;
+        }
+
     }
-}*/
+}
 
 int main(){
 
@@ -93,6 +114,9 @@ int main(){
         switch(op){
             case 2:
                 grau_vertice(grafo);
+                break;
+            case 3:
+                vertice_final(grafo);
                 break;
 
         }
