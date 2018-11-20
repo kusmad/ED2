@@ -1,0 +1,106 @@
+#include<iostream>
+#include<list>
+#include<fstream>
+
+//ajuste: calcular o grau do vertice logo após a leitura para facilitar nas outras duas fuções;
+
+using namespace std;
+
+void menu(){
+    cout << "Digite a opcao desejada:\n\n";
+    cout << "1- Arvore Geradora Minima\n";
+    cout << "2- Grau vertice\n";
+    cout << "3- Vertices finais\n";
+    cout << "4- incidencia\n";
+    cout << "5- Circuito\n";
+    cout << "6- Sequencia de graus\n";
+    cout << "7- Fim\n";
+}
+
+struct dados{
+    int numero_v; // número do vértice
+    string rotulo;
+
+    int numero_aresta;
+    string rotulo_aresta;
+    string v_inicial; // vértice inicial
+    string v_final; // vértice final
+    int custo;
+    int grau;
+};
+
+bool leitura_arq(list<dados> &grafo){
+    ifstream arq;
+    dados aux;
+    int qtd;
+
+    arq.open("xispa.txt");
+
+    if(!arq){
+        cout << "Erro ao abrir o arquivo!\n";
+        return 0;
+    }
+
+    if(arq >> aux.numero_v){
+        qtd = aux.numero_v;
+        for(int i=0; i<qtd; i++){
+            arq >> aux.rotulo;
+            cout << aux.rotulo << endl;
+            grafo.push_back(aux);
+        }
+        if(arq >> aux.numero_aresta){
+            qtd = aux.numero_aresta;
+            for(int j=0; j<qtd; j++){
+                arq >> aux.rotulo_aresta >> aux.v_inicial >> aux.v_final >> aux.custo;
+                cout << aux.rotulo_aresta << endl;
+                grafo.push_back(aux);
+            }
+        }
+    }
+    grafo.push_back(aux);
+
+    return 0;
+}
+
+bool grau(list<dados> &grafo){
+    dados aux;
+    int acum =0;
+    cout << "Digite o nome do vertice desejado: ";
+    cin >> aux.rotulo;
+
+    for(auto it=grafo.begin(); it!=grafo.end(); it++){
+        if(aux.rotulo == it->rotulo){
+            for(auto it=grafo.begin(); it!=grafo.end(); it++){
+
+            }
+            cout << aux.rotulo << endl;
+        }
+    }
+
+    return 0;
+}
+
+
+int main(){
+
+    int op;
+    list<dados> grafo;
+
+    leitura_arq(grafo);
+
+    menu();
+
+    cin >> op;
+
+    do{
+        switch(op){
+            case 2:
+                grau(grafo);
+                break;
+
+        }
+
+    }while(op!=7);
+
+    return 0;
+}
