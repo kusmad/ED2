@@ -52,7 +52,6 @@ bool leitura_arq(list<dados> &grafo){
             qtd = aux.numero_aresta;
             for(int j=0; j<qtd; j++){
                 arq >> aux.rotulo_aresta >> aux.v_inicial >> aux.v_final >> aux.custo;
-                cout << aux.rotulo_aresta << endl;
                 grafo.push_back(aux);
             }
         }
@@ -64,16 +63,22 @@ bool leitura_arq(list<dados> &grafo){
 
 bool grau(list<dados> &grafo){
     dados aux;
-    int acum =0;
     cout << "Digite o nome do vertice desejado: ";
     cin >> aux.rotulo;
+    int acum =0;
 
     for(auto it=grafo.begin(); it!=grafo.end(); it++){
         if(aux.rotulo == it->rotulo){
             for(auto it=grafo.begin(); it!=grafo.end(); it++){
-
+                if(aux.rotulo == it->v_inicial){
+                        if(aux.rotulo == it->v_final){
+                            acum++;
+                        }
+                    acum++;
+                }
             }
-            cout << aux.rotulo << endl;
+            cout << "grau de " << aux.rotulo << ":" << acum+1 << endl;
+            cout << endl;
         }
     }
 
