@@ -61,7 +61,7 @@ bool leitura_arq(list<dados> &grafo){
     return 0;
 }
 
-bool grau(list<dados> &grafo){
+bool grau(list<dados> grafo){
     dados aux;
     cout << "Digite o nome do vertice desejado: ";
     cin >> aux.rotulo;
@@ -77,13 +77,31 @@ bool grau(list<dados> &grafo){
                     acum++;
                 }
             }
-            cout << "grau de " << aux.rotulo << ":" << acum+1 << endl;
-            cout << endl;
+        }
+    }
+    cout << "grau de " << aux.rotulo << ":" << acum+1 << endl;
+    cout << endl;
+
+    return 0;
+}
+
+bool incidente(list<dados> grafo){
+    dados aux;
+    cout << "Digite o nome da aresta desejada: ";
+    cin >> aux.rotulo_aresta;
+
+    for(auto it=grafo.begin(); it!=grafo.end(); it++){
+        if(aux.rotulo_aresta == it->rotulo_aresta){
+
         }
     }
 
     return 0;
 }
+
+
+
+
 
 
 int main(){
@@ -101,6 +119,9 @@ int main(){
         switch(op){
             case 2:
                 grau(grafo);
+                break;
+            case 4:
+                incidente(grafo);
                 break;
 
         }
