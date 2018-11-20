@@ -2,7 +2,7 @@
 #include<list>
 #include<fstream>
 
-//ajuste: calcular o grau do vertice logo após a leitura para facilitar nas outras duas fuções;
+//ajuste: 
 
 using namespace std;
 
@@ -79,7 +79,7 @@ bool grau(list<dados> grafo){
             }
         }
     }
-    cout << "grau de " << aux.rotulo << ":" << acum+1 << endl;
+    cout << "grau de " << aux.rotulo << ":" << acum << endl;
     cout << endl;
 
     return 0;
