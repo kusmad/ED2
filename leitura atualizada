@@ -2,7 +2,7 @@
 #include<list>
 #include<fstream>
 
-//ajuste: 
+//ajuste: calcular o grau do vertice logo após a leitura para facilitar nas outras duas fuções;
 
 using namespace std;
 
@@ -45,18 +45,17 @@ bool leitura_arq(list<dados> &grafo){
         qtd = aux.numero_v;
         for(int i=0; i<qtd; i++){
             arq >> aux.rotulo;
-            cout << aux.rotulo << endl;
             grafo.push_back(aux);
         }
-        if(arq >> aux.numero_aresta){
-            qtd = aux.numero_aresta;
+    }
+
+    if(arq >> aux.numero_aresta){
+        qtd = aux.numero_aresta;
             for(int j=0; j<qtd; j++){
                 arq >> aux.rotulo_aresta >> aux.v_inicial >> aux.v_final >> aux.custo;
                 grafo.push_back(aux);
             }
-        }
     }
-    grafo.push_back(aux);
 
     return 0;
 }
@@ -70,18 +69,18 @@ bool grau(list<dados> grafo){
     for(auto it=grafo.begin(); it!=grafo.end(); it++){
         if(aux.rotulo == it->rotulo){
             for(auto it=grafo.begin(); it!=grafo.end(); it++){
-                if(aux.rotulo == it->v_inicial){
-                        if(aux.rotulo == it->v_final){
-                            acum++;
-                        }
-                    acum++;
+                if(aux.rotulo == it->v_inicial || aux.rotulo == it->v_final){
+                acum++;
                 }
             }
         }
     }
-    cout << "grau de " << aux.rotulo << ":" << acum << endl;
-    cout << endl;
+    if(acum!=0)
+        cout << "grau de " << aux.rotulo << ": " << acum << endl;
+    else
+        cout << "grau de " << aux.rotulo << ": " << "Nao existe." << endl;
 
+    cout << endl;
     return 0;
 }
 
@@ -98,10 +97,6 @@ bool incidente(list<dados> grafo){
 
     return 0;
 }
-
-
-
-
 
 
 int main(){
