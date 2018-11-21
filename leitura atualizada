@@ -3,6 +3,7 @@
 #include<fstream>
 
 //ajuste: calcular o grau do vertice logo após a leitura para facilitar nas outras duas fuções;
+//ajuste2: na função do grau um dos for's era desnecessário e tava bugando o V05;
 
 using namespace std;
 
@@ -67,12 +68,8 @@ bool grau(list<dados> grafo){
     int acum =0;
 
     for(auto it=grafo.begin(); it!=grafo.end(); it++){
-        if(aux.rotulo == it->rotulo){
-            for(auto it=grafo.begin(); it!=grafo.end(); it++){
-                if(aux.rotulo == it->v_inicial || aux.rotulo == it->v_final){
-                acum++;
-                }
-            }
+        if(aux.rotulo == it->v_inicial || aux.rotulo == it->v_final){
+            acum++;
         }
     }
     if(acum!=0)
