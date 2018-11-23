@@ -2,8 +2,9 @@
 #include<list>
 #include<fstream>
 
-//ajuste: calcular o grau do vertice logo após a leitura para facilitar nas outras duas fuções;
-//ajuste2: na função do grau um dos for's era desnecessário e tava bugando o V05;
+//ajuste: calcular o grau do vertice logo apÃ³s a leitura para facilitar nas outras duas fuÃ§Ãµes;
+//ajuste2: na funÃ§Ã£o do grau um dos for's era desnecessÃ¡rio e tava bugando o V05;
+//ajuste3:separei o calculo do grau em uma funÃ§Ã£o separa para poder usar a mesma na de sequencia;
 
 using namespace std;
 
@@ -23,12 +24,12 @@ int menu(){
 }
 
 struct dados{
-    int numero_v; // número do vértice
+    int numero_v; // nÃºmero do vÃ©rtice
     string rotulo;
     int numero_aresta;
     string rotulo_aresta;
-    string v_inicial; // vértice inicial
-    string v_final; // vértice final
+    string v_inicial; // vÃ©rtice inicial
+    string v_final; // vÃ©rtice final
     int custo;
     int grau;
 };
@@ -64,23 +65,34 @@ bool leitura_arq(list<dados> &grafo){
     return 0;
 }
 
+int calculo_grau(list<dados> grafo, string vertice){
+
+    string v = vertice;
+    int acum=0;
+
+    for(auto it=grafo.begin(); it!=grafo.end(); it++){
+        if(v == it->v_inicial || v == it->v_final){
+            acum++;
+        }
+    }
+
+    return acum;
+}
+
 bool grau(list<dados> grafo){
     string vertice;
     cout << "Digite o nome do vertice desejado: ";
     cin >> vertice;
-    int acum =0;
+    int g=0;
 
-    for(auto it=grafo.begin(); it!=grafo.end(); it++){
-        if(vertice == it->v_inicial || vertice == it->v_final){
-            acum++;
-        }
-    }
-    if(acum!=0)
-        cout << "grau de " << vertice << ": " << acum << endl;
-    else
-        cout << "grau de " << vertice << ": " << "Nao existe." << endl;
+    cout << "\nGrau de " << vertice << ": ";
 
-    cout << endl;
+    g = calculo_grau(grafo, vertice);
+
+    if(g>0) cout << g << endl << endl;
+
+    if(g==0) cout << "Vertice inexistente\n" << endl << endl;
+
     return 0;
 }
 
@@ -126,7 +138,22 @@ bool vertice_final(list<dados> &grafo){
     }
 }
 
+bool sequencia(list<dados> grafo){
 
+    int g=0;
+
+    cout << "\nG={";
+
+    for(auto it=grafo.begin(); it!=grafo.end(); it++){
+        if(it->rotulo_aresta.size()>0) break;
+        if(g>0) cout << ",";
+        g=calculo_grau(grafo, it->rotulo);
+        cout << g;
+    }
+
+    cout << "}\n" << endl;
+    return 0;
+}
 
 int main(){
 
@@ -146,6 +173,9 @@ int main(){
                 break;
             case 4:
                 incidente(grafo);
+                break;
+            case 6:
+                sequencia(grafo);
                 break;
 
             default:
