@@ -104,7 +104,7 @@ bool incidente(list<dados> grafo){
 
     for(auto it=grafo.begin(); it!=grafo.end(); it++){
         if(aux.rotulo_aresta == it->rotulo_aresta){
-
+            cout << it->v_inicial << "," << it->v_final << endl;
         }
     }
 
@@ -174,6 +174,33 @@ bool sequencia(list<dados> grafo){
     return 0;
 }
 
+bool circuito(list<dados> &grafo){
+    int cont;
+    int acum = 0;
+    list<dados>::iterator p=grafo.begin();
+    string v;
+
+
+        v = p->rotulo;
+
+        for(auto it=grafo.begin(); it!=grafo.end(); it++){
+            if(v != it->v_final && it->rotulo_aresta.size()>0){
+                cout << it->v_inicial << " - ";
+                cout << it->rotulo_aresta << " - ";
+                acum++;
+                p++;
+            }
+            else
+                if(v == it->v_final && acum >= 2){
+                cout << it->v_inicial << " - ";
+                cout << it->rotulo_aresta << " - " << it->v_final << "." << endl;
+                break;
+                }
+        }
+
+    cout << endl;
+}
+
 int main(){
 
     int op;
@@ -193,6 +220,9 @@ int main(){
             case 4:
                 incidente(grafo);
                 break;
+            case 5:
+                circuito(grafo);
+                break;
             case 6:
                 sequencia(grafo);
                 break;
@@ -205,4 +235,6 @@ int main(){
 
     return 0;
 }
+
+
 
