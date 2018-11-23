@@ -128,15 +128,15 @@ bool vertice_final(list<dados> &grafo){
                // cout << vf << endl;
             }
         }
-        if(vf==1){
+        p++;
+    }
+    if(vf==1){
             cout << "Vertice final: " << v << endl;
 
         }
         else{
             cout << "Nao ha vertices finais no grafo\n\n";
         }
-        p++;
-    }
 }
 
 bool sequencia(list<dados> grafo){
@@ -235,6 +235,7 @@ int main(){
 
     return 0;
 }
+
 
 
 
