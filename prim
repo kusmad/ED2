@@ -1,0 +1,39 @@
+bool prim(list<dados> grafo){
+
+    tab aux;
+    list<dados>::iterator g = grafo.begin();
+    list<tab> arv;
+    int cont = g->numero_v;
+
+    cout << "Digite o vertice inicial da arvore: ";
+    string vi;
+    cin >> vi;
+
+    aux.vert=vi;
+    aux.cust=0;
+    aux.vindod="-";
+    aux.fec='n';
+    arv.push_back(aux);
+
+    for(auto it=grafo.begin(); it!=grafo.end(); it++){
+        if(vi==it->v_inicial){
+            aux.vert=it->v_final;
+            aux.cust=it->custo;
+            aux.vindod=vi;
+            arv.push_back(aux);
+            break;
+        }else if(vi==it->v_final){
+            aux.vert=it->v_inicial;
+            aux.cust=it->custo;
+            aux.vindod=vi;
+            arv.push_back(aux);
+            break;
+        }
+
+    }
+
+    for(auto it=arv.begin(); it!=arv.end(); it++){
+        cout << it->vert << " " << it->cust << " " << it->vindod << endl;
+    }
+
+}
