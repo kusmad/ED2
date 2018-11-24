@@ -3,37 +3,87 @@ bool prim(list<dados> grafo){
     tab aux;
     list<dados>::iterator g = grafo.begin();
     list<tab> arv;
-    int cont = g->numero_v;
+    int cont = g->numero_v, x;
+    string vi, atual, y;
+
+    while(cont--){
+        aux.vert = g->rotulo;
+        aux.cust = INT_MAX;
+        aux.vindod = "-";
+        aux.fec='n';
+        arv.push_back(aux);
+        g++;
+        //cout << aux.vert << " " << aux.cust << " " << aux.vindod << " "  << aux.fec <<endl;
+    }
 
     cout << "Digite o vertice inicial da arvore: ";
-    string vi;
     cin >> vi;
 
-    aux.vert=vi;
-    aux.cust=0;
-    aux.vindod="-";
-    aux.fec='n';
-    arv.push_back(aux);
-
-    for(auto it=grafo.begin(); it!=grafo.end(); it++){
-        if(vi==it->v_inicial){
-            aux.vert=it->v_final;
-            aux.cust=it->custo;
-            aux.vindod=vi;
-            arv.push_back(aux);
-            break;
-        }else if(vi==it->v_final){
-            aux.vert=it->v_inicial;
-            aux.cust=it->custo;
-            aux.vindod=vi;
-            arv.push_back(aux);
-            break;
+    for(auto it=arv.begin(); it!=arv.end(); it++){
+        if(vi==it->vert){
+            it->cust=0;
         }
-
     }
+
+    atual=vi;
 
     for(auto it=arv.begin(); it!=arv.end(); it++){
-        cout << it->vert << " " << it->cust << " " << it->vindod << endl;
+
+        for(auto it=grafo.begin(); it!=grafo.end(); it++){
+
+            if(atual==it->v_inicial){
+                y=it->v_final;
+                x=it->custo;
+                for(auto it=arv.begin(); it!=arv.end(); it++){
+                    if(it->vert==y){
+                        it->cust=x;
+                        it->vindod=atual;
+                    }
+                }
+
+            }else if(atual==it->v_final){
+                y=it->v_inicial;
+                x=it->custo;
+                for(auto it=arv.begin(); it!=arv.end(); it++){
+                    if(it->vert==y){
+                        it->cust=x;
+                        it->vindod=atual;
+                    }
+                }
+            }
+        }
+
+        for(auto it=arv.begin(); it!=arv.end(); it++){
+            if(atual==it->vert) it->fec='s';
+        }
+        /*
+        for(auto it=arv.begin(); it!=arv.end(); it++){
+            if(it->fec=='n'){
+                atual=
+            }
+        }
+        */
+        break;
+
+    }
+/*
+    for(auto it=arv.begin(); it!=arv.end(); it++){
+        if(vi==it->vert) it->fec='s';
+    }
+*/
+    cout << endl;
+
+    for(auto it=arv.begin(); it!=arv.end(); it++){
+        cout << it->vert << " " << it->cust << " " << it->vindod << " "  << it->fec <<endl;
     }
 
+    cout << endl;
+    /*
+    while(cont--){
+        aux.vert=g->rotulo;
+        avm.push_back(al);
+        g++;
+        cout << al.vertice << endl;
+    }
+*/
 }
