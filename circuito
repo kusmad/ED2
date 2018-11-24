@@ -1,28 +1,27 @@
 bool circuito(list<dados> &grafo){
-    int cont;
     int acum = 0;
     list<dados>::iterator p=grafo.begin();
-    string v;
-    cont = p->numero_v;
+    string v,atual;
 
-
-        v = p->rotulo;
-        //cout << v << endl;
-
-        for(auto it=grafo.begin(); it!=grafo.end(); it++){
-            if(v != it->v_final){
-                cout << it->v_inicial << " - ";
-                cout << it->rotulo_aresta << " - ";
-                acum++;
-                p++;
-            }
-            else
-                if(v == it->v_final && acum >= 2){
-                cout << it->v_inicial << " - ";
-                cout << it->rotulo_aresta << " - " << it->v_final << "." << endl;
-                break;
-                }
+    v = p->rotulo;
+    for(auto it=grafo.begin(); it!=grafo.end(); it++){
+        if(acum == 0 && v == it->v_inicial && it->rotulo_aresta.size()>0){
+            cout << it->v_inicial << " - " << it->rotulo_aresta << " - " << it->v_final << " - ";
+            atual = it->v_final;
+            acum++;
         }
+        else
+            if(atual == it->v_inicial && it->rotulo_aresta.size()>0){
+                cout << it->rotulo_aresta << " - " << it->v_final << " - ";
+                atual = it->v_final;
+                acum++;
+            }
+
+        if(acum>=2 && v == it->v_final && it->rotulo_aresta.size()>0){
+            cout << ".";
+            break;
+        }
+    }
 
     cout << endl;
 }
