@@ -3,9 +3,9 @@
 #include<fstream>
 #include <algorithm>
 
-//ajuste: calcular o grau do vertice logo apÃ³s a leitura para facilitar nas outras duas fuÃ§Ãµes;
-//ajuste2: na funÃ§Ã£o do grau um dos for's era desnecessÃ¡rio e tava bugando o V05;
-//ajuste3: separei o calculo do grau em uma funÃ§Ã£o separa para poder usar a mesma na de sequencia;
+//ajuste: calcular o grau do vertice logo após a leitura para facilitar nas outras duas fuções;
+//ajuste2: na função do grau um dos for's era desnecessário e tava bugando o V05;
+//ajuste3: separei o calculo do grau em uma função separa para poder usar a mesma na de sequencia;
 
 using namespace std;
 
@@ -25,14 +25,21 @@ int menu(){
 }
 
 struct dados{
-    int numero_v; // nÃºmero do vÃ©rtice
+    int numero_v; // número do vértice
     string rotulo;
     int numero_aresta;
     string rotulo_aresta;
-    string v_inicial; // vÃ©rtice inicial
-    string v_final; // vÃ©rtice final
+    string v_inicial; // vértice inicial
+    string v_final; // vértice final
     int custo;
     int grau;
+};
+
+struct arvore{
+    string vertice;
+    int distancia;
+    string pai;
+    string ar;
 };
 
 bool leitura_arq(list<dados> &grafo){
@@ -200,6 +207,57 @@ bool circuito(list<dados> &grafo){
 
     cout << endl;
 }
+bool menor_custo(list<dados> &grafo, list<arvore> &avm, string &vi){
+    list<dados>::iterator f = grafo.begin();
+    arvore ab;
+    int inc =0;
+    for(auto it=grafo.begin(); it!=grafo.end(); it++){
+        if(vi == it->v_inicial || vi == it->v_final){
+            inc ++;
+        }
+    }
+    f = grafo.begin();
+    int menor = f->custo;
+    cout << f->custo << endl;
+    for(int i=0; i<inc; i++){
+        if(menor>f->custo) menor = f->custo;
+
+        f++;
+    }
+        cout << menor << endl;
+        f = grafo.begin();
+        ab.distancia = menor;
+    for(auto it=grafo.begin(); it!=grafo.end(); it++){
+        if(menor == it->custo)
+        ab.ar = it->rotulo_aresta;
+    }
+        avm.push_back(ab);
+        cout << ab.pai << " " << ab.distancia << " " << ab.ar << endl;
+}
+
+bool arvore_minima(list<dados> grafo){
+    list<arvore> avm;
+    arvore al;
+    list<dados>::iterator g = grafo.begin();
+    int cont = g->numero_v;
+    while(cont--){
+        al.vertice = g->rotulo;
+        avm.push_back(al);
+        g++;
+        cout << al.vertice << endl;
+    }
+    cout << "Digite o vertice inicial da arvore: ";
+    string vi;
+    cin >> vi;
+
+    al.pai = vi;
+
+    avm.push_back(al);
+
+    menor_custo(grafo, avm, vi);
+
+
+}
 
 int main(){
 
@@ -211,6 +269,9 @@ int main(){
     do{
         op = menu();
         switch(op){
+            case 1:
+                arvore_minima(grafo);
+                break;
             case 2:
                 grau(grafo);
                 break;
@@ -235,7 +296,3 @@ int main(){
 
     return 0;
 }
-
-
-
-
