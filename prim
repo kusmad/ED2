@@ -3,7 +3,7 @@ bool prim(list<dados> grafo){
     tab aux;
     list<dados>::iterator g = grafo.begin();
     list<tab> arv;
-    int cont = g->numero_v, x;
+    int cont = g->numero_v, x, z;
     string vi, atual, y;
 
     while(cont--){
@@ -35,7 +35,7 @@ bool prim(list<dados> grafo){
                 y=it->v_final;
                 x=it->custo;
                 for(auto it=arv.begin(); it!=arv.end(); it++){
-                    if(it->vert==y){
+                    if(it->vert==y && it->fec=='n'){
                         it->cust=x;
                         it->vindod=atual;
                     }
@@ -45,7 +45,7 @@ bool prim(list<dados> grafo){
                 y=it->v_inicial;
                 x=it->custo;
                 for(auto it=arv.begin(); it!=arv.end(); it++){
-                    if(it->vert==y){
+                    if(it->vert==y && it->fec=='n'){
                         it->cust=x;
                         it->vindod=atual;
                     }
@@ -56,21 +56,21 @@ bool prim(list<dados> grafo){
         for(auto it=arv.begin(); it!=arv.end(); it++){
             if(atual==it->vert) it->fec='s';
         }
-        /*
         for(auto it=arv.begin(); it!=arv.end(); it++){
             if(it->fec=='n'){
-                atual=
+                atual=it->vert;
+                z=it->cust;
+                break;
             }
         }
-        */
-        break;
+        for(auto it=arv.begin(); it!=arv.end(); it++){
+            if(it->fec=='n' && it->cust<z){
+                atual=it->vert;
+            }
+        }
 
     }
-/*
-    for(auto it=arv.begin(); it!=arv.end(); it++){
-        if(vi==it->vert) it->fec='s';
-    }
-*/
+
     cout << endl;
 
     for(auto it=arv.begin(); it!=arv.end(); it++){
@@ -78,12 +78,5 @@ bool prim(list<dados> grafo){
     }
 
     cout << endl;
-    /*
-    while(cont--){
-        aux.vert=g->rotulo;
-        avm.push_back(al);
-        g++;
-        cout << al.vertice << endl;
-    }
-*/
+
 }
